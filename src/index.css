@@ -33,6 +33,17 @@ h1 {
   justify-content: center;
 }
 
+h2 {
+  font-size: 2.2em;
+  line-height: 1.1;
+  background-color: #1a1a1a;
+  color: #eae2e2;
+  display: flex;
+  padding: 10px;
+  border-radius: 8px;
+  justify-content: center;
+}
+
 #navbar {
   display: flex;
   justify-content: space-between;
@@ -55,6 +66,14 @@ h1 {
 }
 
 .article-card {
+  display: block;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px auto;
+}
+
+#single-article {
   display: block;
   border: 1px solid black;
   border-radius: 8px;
