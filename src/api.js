@@ -20,5 +20,10 @@ const getArticleComments = (article_id) => {
     return data.comments;
   });
 };
+const getVoteCount = (article_id) => {
+  return api.get(`/articles/${article_id}`).then(({ data }) => {
+    return data.article.votes;
+  });
+};
 
-export { getArticles, getSingleArticle, getArticleComments };
+export { getArticles, getSingleArticle, getArticleComments, getVoteCount };

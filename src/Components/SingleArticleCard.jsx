@@ -1,8 +1,10 @@
 import { getSingleArticle } from "../api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import Error from "./Error";
+import VotesCount from "./VotesCount";
 
 function SingleArticleCard() {
   const { article_id } = useParams();
@@ -38,7 +40,7 @@ function SingleArticleCard() {
         <p>Comment Count:{singleArticle.comment_count}</p>
         <p>Created At:{singleArticle.created_at}</p>
         <h4>Author:{singleArticle.author}</h4>
-        <p>Votes:{singleArticle.votes}</p>
+        <div>{<VotesCount />}</div>
         <p>Topic:{singleArticle.topic}</p>
         <button>Comment</button>
       </section>
