@@ -6,6 +6,7 @@ import NavBar from "./Components/NavBar";
 import SingleArticleCard from "./Components/SingleArticleCard";
 import ArticleComments from "./Components/ArticleComments";
 import ArticlesList from "./Components/ArticlesList";
+import ArticlesByTopic from "./Components/ArticlesByTopic";
 import UserList from "./Components/UserList";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             }
           />
           <Route path="/users" element={<UserList />} />
+          <Route path="/topics/:topic" element={<ArticlesByTopic />} />
 
           <Route path="*" element={<p>Path not resolved</p>} />
         </Routes>

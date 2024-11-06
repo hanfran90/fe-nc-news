@@ -42,8 +42,19 @@ const getUsers = () => {
 
 const deleteComment = (commentId) => {
   return api.delete(`/comments/${commentId}`).then((response) => {
-    console.log(response.data);
     return response.data;
+  });
+};
+
+const getTopics = () => {
+  return api.get("/topics").then((response) => {
+    return response.data.topics;
+  });
+};
+
+const getArticlesByTopic = (topic) => {
+  return api.get(`/articles/?topic=${topic}`).then((response) => {
+    return response.data.articles;
   });
 };
 
@@ -55,4 +66,6 @@ export {
   postComment,
   getUsers,
   deleteComment,
+  getTopics,
+  getArticlesByTopic,
 };
