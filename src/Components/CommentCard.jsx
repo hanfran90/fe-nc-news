@@ -7,6 +7,7 @@ function CommentCard({ comment }) {
       <p>{comment.body}</p>
       <div>{<VotesCount />}</div>
       <p>{comment.created_at}</p>
+      <button>Delete</button>
     </section>
   );
 }
