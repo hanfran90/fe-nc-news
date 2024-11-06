@@ -1,6 +1,7 @@
-import { getSingleArticle, getArticleComments } from "../api";
-import { useState, useEffect } from "react";
+import { getSingleArticle, getArticleComments, deleteComment } from "../api";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { UserContext } from "../Context/User";
 import CommentAdder from "./CommentAdder";
 import ArticleComments from "./ArticleComments";
 import Loading from "./Loading";
@@ -9,9 +10,12 @@ import VotesCount from "./VotesCount";
 
 function SingleArticleCard() {
   const { article_id } = useParams();
+  const { loggedInUser } = useContext(UserContext);
   const [singleArticle, setSingleArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(null);
+  const [deleteSuccess, setDeleteSuccess] = useState("");
   const [allComments, setAllComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
 
@@ -42,6 +46,25 @@ function SingleArticleCard() {
     setAllComments((prevComments) => [newComment, ...prevComments]);
   };
 
+  const deleteUserComment = (commentId) => {
+    setIsDeleting(commentId);
+    deleteComment(commentId)
+      .then(() => {
+        setAllComments((prevComments) => {
+          return prevComments.filter(
+            (comment) => comment.comment_id !== commentId
+          );
+        });
+        setDeleteSuccess("Comment was successfully deleted.");
+        setTimeout(() => {
+          setDeleteSuccess("");
+        }, 3000);
+      })
+      .finally(() => {
+        setIsDeleting(null);
+      });
+  };
+
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
 
@@ -56,7 +79,7 @@ function SingleArticleCard() {
         <p>Created At: {singleArticle.created_at}</p>
         <h4>Author: {singleArticle.author}</h4>
         <div>
-          <VotesCount article_id={article_id} />
+          <VotesCount isArticle={true} article_id={article_id} />
         </div>
         <p>Topic: {singleArticle.topic}</p>
       </section>
@@ -65,6 +88,8 @@ function SingleArticleCard() {
         {showComments ? "Hide Comments" : "Show and Post Comments"}
       </button>
 
+      {deleteSuccess && <p>{deleteSuccess}</p>}
+
       {showComments && (
         <>
           <CommentAdder article_id={article_id} addNewComment={addNewComment} />
@@ -72,6 +97,9 @@ function SingleArticleCard() {
             article_id={article_id}
             showComments={showComments}
             allComments={allComments}
+            deleteUserComment={deleteUserComment}
+            loggedInUser={loggedInUser}
+            isDeleting={isDeleting}
           />
         </>
       )}

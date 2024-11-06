@@ -4,7 +4,7 @@ import { getVoteCount } from "../api";
 
 function VotesCount() {
   const { article_id } = useParams();
-  const [voteCount, setVoteCount] = useState([]);
+  const [voteCount, setVoteCount] = useState(0);
   const [isError, setIsError] = useState(null);
 
   useEffect(() => {

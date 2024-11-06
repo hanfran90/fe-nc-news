@@ -40,6 +40,13 @@ const getUsers = () => {
   });
 };
 
+const deleteComment = (commentId) => {
+  return api.delete(`/comments/${commentId}`).then((response) => {
+    console.log(response.data);
+    return response.data;
+  });
+};
+
 export {
   getArticles,
   getSingleArticle,
@@ -47,4 +54,5 @@ export {
   getVoteCount,
   postComment,
   getUsers,
+  deleteComment,
 };

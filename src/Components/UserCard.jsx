@@ -2,8 +2,6 @@ import { useContext, useState } from "react";
 import { UserContext } from "../Context/User";
 
 function UserCard({ user }) {
-  const [login, setLogin] = useState("");
-
   const { setLoggedInUser } = useContext(UserContext);
 
   const handleLogin = () => {
