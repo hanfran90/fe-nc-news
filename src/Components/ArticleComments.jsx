@@ -1,7 +1,13 @@
 import Loading from "./Loading";
 import CommentCard from "./CommentCard";
 
-function ArticleComments({ allComments, showComments }) {
+function ArticleComments({
+  allComments,
+  showComments,
+  deleteUserComment,
+  loggedInUser,
+  isDeleting,
+}) {
   if (!showComments) return null;
 
   if (!allComments) {
@@ -12,7 +18,13 @@ function ArticleComments({ allComments, showComments }) {
     <section>
       <ul>
         {allComments.map((comment) => (
-          <CommentCard comment={comment} key={comment.comment_id} />
+          <CommentCard
+            comment={comment}
+            key={comment.comment_id}
+            deleteUserComment={deleteUserComment}
+            loggedInUser={loggedInUser}
+            isDeleting={isDeleting}
+          />
         ))}
       </ul>
     </section>
