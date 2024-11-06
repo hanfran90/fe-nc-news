@@ -92,6 +92,54 @@ h2 {
   margin: 10px auto;
 }
 
+.post-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.post-form input {
+  width: 80%;
+  padding: 12px;
+  box-sizing: border-box;
+  background-color: #50515e;
+  border: 2px solid rgb(225, 125, 11);
+  border-radius: 8px;
+}
+
+#comment-form {
+  width: 80%;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#username-form {
+  width: 40%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px auto;
+}
+
+.user-img {
+  width: 200px;
+  height: 200px;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

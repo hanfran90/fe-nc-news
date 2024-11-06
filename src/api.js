@@ -26,4 +26,25 @@ const getVoteCount = (article_id) => {
   });
 };
 
-export { getArticles, getSingleArticle, getArticleComments, getVoteCount };
+const postComment = (article_id, comment) => {
+  return api
+    .post(`/articles/${article_id}/comments`, comment)
+    .then((response) => {
+      return response.data;
+    });
+};
+
+const getUsers = () => {
+  return api.get("/users").then(({ data }) => {
+    return data.users;
+  });
+};
+
+export {
+  getArticles,
+  getSingleArticle,
+  getArticleComments,
+  getVoteCount,
+  postComment,
+  getUsers,
+};
