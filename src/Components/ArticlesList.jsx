@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getArticles } from "../api";
+import { useSearchParams } from "react-router-dom";
 import Loading from "./Loading";
 import Error from "./Error";
 import ArticleCard from "./ArticleCard";
@@ -9,11 +10,20 @@ function ArticlesList() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [sort, setSort] = useState("");
+  const [order, setOrder] = useState("");
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const sortByQuery = searchParams.get("sort_by");
+  const orderByQuery = searchParams.get("order");
+
   useEffect(() => {
     setIsLoading(true);
     setIsError(false);
-
-    getArticles()
+    const sortBy = sort ? sort : undefined;
+    const orderBy = order ? order : undefined;
+    getArticles({ sort_by: sortBy, order: orderBy })
       .then((articlesData) => {
         setAllArticles(articlesData);
         setIsLoading(false);
@@ -22,7 +32,12 @@ function ArticlesList() {
         setIsError(true);
         setIsLoading(false);
       });
-  }, []);
+    let searchObject = {
+      sort_by: sortBy,
+      order: orderBy,
+    };
+    setSearchParams(searchObject);
+  }, [sort, order, setSearchParams]);
 
   if (isError) {
     return <Error />;
@@ -31,9 +46,31 @@ function ArticlesList() {
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <section>
       <h2>Enjoy reading todays news!</h2>
+      <div>
+        <select
+          value={sort}
+          onChange={(event) => {
+            setSort(event.target.value);
+          }}
+        >
+          <option value="created_at">Date</option>
+          <option value="author">Author</option>
+          <option value="title">Title</option>
+        </select>
+        <select
+          value={order}
+          onChange={(event) => {
+            setOrder(event.target.value);
+          }}
+        >
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </div>
       <ul>
         {allArticles.map((article) => (
           <ArticleCard article={article} key={article.article_id} />

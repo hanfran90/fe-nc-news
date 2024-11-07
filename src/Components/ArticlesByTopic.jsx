@@ -11,7 +11,6 @@ function ArticlesByTopic() {
   useEffect(() => {
     setIsLoading(true);
     getArticlesByTopic(topic).then((foundArticles) => {
-      console.log(foundArticles);
       setArticleTopics(foundArticles);
       setIsLoading(false);
     });
