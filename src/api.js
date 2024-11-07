@@ -4,7 +4,6 @@ const api = axios.create({
 });
 
 const getArticles = (queries) => {
-  console.log(queries);
   return api.get("/articles", { params: queries }).then((response) => {
     return response.data.articles;
   });

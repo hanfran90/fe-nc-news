@@ -1,15 +1,22 @@
 import { useState, useEffect } from "react";
 import { getArticles } from "../api";
+import { useSearchParams } from "react-router-dom";
 import Loading from "./Loading";
 import Error from "./Error";
 import ArticleCard from "./ArticleCard";
 
 function ArticlesList() {
   const [allArticles, setAllArticles] = useState([]);
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [sort, setSort] = useState("");
+  const [order, setOrder] = useState("");
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const sortByQuery = searchParams.get("sort_by");
+  const orderByQuery = searchParams.get("order");
 
   useEffect(() => {
     setIsLoading(true);
@@ -19,14 +26,18 @@ function ArticlesList() {
     getArticles({ sort_by: sortBy, order: orderBy })
       .then((articlesData) => {
         setAllArticles(articlesData);
-        console.log(articlesData);
         setIsLoading(false);
       })
       .catch((error) => {
         setIsError(true);
         setIsLoading(false);
       });
-  }, [sort, order]);
+    let searchObject = {
+      sort_by: sortBy,
+      order: orderBy,
+    };
+    setSearchParams(searchObject);
+  }, [sort, order, setSearchParams]);
 
   if (isError) {
     return <Error />;
@@ -35,6 +46,7 @@ function ArticlesList() {
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <section>
       <h2>Enjoy reading todays news!</h2>
@@ -45,10 +57,9 @@ function ArticlesList() {
             setSort(event.target.value);
           }}
         >
-          <option value="">All Articles</option>
+          <option value="created_at">Date</option>
           <option value="author">Author</option>
           <option value="title">Title</option>
-          <option value="created_at">Date</option>
         </select>
         <select
           value={order}
@@ -56,7 +67,6 @@ function ArticlesList() {
             setOrder(event.target.value);
           }}
         >
-          <option value=""></option>
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
         </select>
