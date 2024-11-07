@@ -31,7 +31,10 @@ function App() {
           <Route path="/users" element={<UserList />} />
           <Route path="/topics/:topic" element={<ArticlesByTopic />} />
 
-          <Route path="*" element={<p>Path not resolved</p>} />
+          <Route
+            path="*"
+            element={<p>Path does not exist! Please enter a valid path.</p>}
+          />
         </Routes>
       </>
     </UserContext.Provider>

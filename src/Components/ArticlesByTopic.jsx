@@ -2,21 +2,38 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getArticlesByTopic } from "../api";
 import { Link } from "react-router-dom";
+import Error from "./Error";
+import Loading from "./Loading";
 
 function ArticlesByTopic() {
   const [articleTopics, setArticleTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
   const { topic } = useParams();
 
   useEffect(() => {
     setIsLoading(true);
-    getArticlesByTopic(topic).then((foundArticles) => {
-      setArticleTopics(foundArticles);
-      setIsLoading(false);
-    });
+    getArticlesByTopic(topic)
+      .then((foundArticles) => {
+        if (foundArticles.length === 0) {
+          setIsError(true);
+        } else {
+          setArticleTopics(foundArticles);
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsError(true);
+        setIsLoading(false);
+      });
   }, [topic]);
 
-  if (isLoading) return <p>Loading articles...</p>;
+  if (isLoading) return <Loading />;
+
+  if (isError)
+    return (
+      <Error msg="Could not find articles related to an non-existent topic." />
+    );
 
   return (
     <section>

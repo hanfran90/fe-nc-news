@@ -1,10 +1,9 @@
-function Error({ error }) {
-    return (
-      <section>
-        <p>{error.status}</p>
-        <p>{error.msg}</p>
-      </section>
-    );
-  }
-  
-  export default Error;
+function Error({ msg }) {
+  return (
+    <section>
+      <p>{msg}</p>
+    </section>
+  );
+}
+
+export default Error;
