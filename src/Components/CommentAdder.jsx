@@ -13,7 +13,7 @@ function PostComment({ article_id, addNewComment }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!newComment.body || !newComment.username) {
-      setIsError("Please fill out both fields.");
+      setIsError("Please fill out both fields to post a comment!");
       return;
     }
     setIsPosting(true);

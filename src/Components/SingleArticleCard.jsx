@@ -21,7 +21,7 @@ function SingleArticleCard() {
 
   useEffect(() => {
     setIsLoading(true);
-    setIsError(false);
+    setIsError(null);
 
     getSingleArticle(article_id)
       .then((articleData) => {
@@ -33,7 +33,7 @@ function SingleArticleCard() {
         setIsLoading(false);
       })
       .catch((error) => {
-        setIsError(true);
+        setIsError("Article does not exist...");
         setIsLoading(false);
       });
   }, [article_id]);
@@ -66,7 +66,7 @@ function SingleArticleCard() {
   };
 
   if (isLoading) return <Loading />;
-  if (isError) return <Error />;
+  if (isError) return <Error msg={isError} />;
 
   return (
     <>
