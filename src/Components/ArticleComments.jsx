@@ -5,7 +5,6 @@ function ArticleComments({
   allComments,
   showComments,
   deleteUserComment,
-  loggedInUser,
   isDeleting,
 }) {
   if (!showComments) return null;
@@ -22,7 +21,6 @@ function ArticleComments({
             comment={comment}
             key={comment.comment_id}
             deleteUserComment={deleteUserComment}
-            loggedInUser={loggedInUser}
             isDeleting={isDeleting}
           />
         ))}

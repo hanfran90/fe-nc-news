@@ -10,19 +10,18 @@ function ArticlesList() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const [sort, setSort] = useState("");
   const [order, setOrder] = useState("");
 
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const sortByQuery = searchParams.get("sort_by");
-  const orderByQuery = searchParams.get("order");
+  const sortByQuery = searchParams.get("sort_by" || "");
+  const orderByQuery = searchParams.get("order" || "");
 
   useEffect(() => {
     setIsLoading(true);
     setIsError(false);
-    const sortBy = sort ? sort : undefined;
-    const orderBy = order ? order : undefined;
+    const sortBy = sort || sortByQuery;
+    const orderBy = order || orderByQuery;
     getArticles({ sort_by: sortBy, order: orderBy })
       .then((articlesData) => {
         setAllArticles(articlesData);
@@ -32,10 +31,9 @@ function ArticlesList() {
         setIsError(true);
         setIsLoading(false);
       });
-    let searchObject = {
-      sort_by: sortBy,
-      order: orderBy,
-    };
+    const searchObject = {};
+    if (sortBy) searchObject.sort_by = sortBy;
+    if (orderBy) searchObject.order = orderBy;
     setSearchParams(searchObject);
   }, [sort, order, setSearchParams]);
 
@@ -57,6 +55,7 @@ function ArticlesList() {
             setSort(event.target.value);
           }}
         >
+          <option value="">Sort By</option>
           <option value="created_at">Date</option>
           <option value="author">Author</option>
           <option value="title">Title</option>
@@ -67,6 +66,7 @@ function ArticlesList() {
             setOrder(event.target.value);
           }}
         >
+          <option value="">Order By</option>
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
         </select>

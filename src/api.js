@@ -26,6 +26,14 @@ const getVoteCount = (article_id) => {
   });
 };
 
+const patchVoteCountArticle = (article_id, increment) => {
+  return api
+    .patch(`/articles/${article_id}`, { inc_votes: increment })
+    .then((response) => {
+      return response.data;
+    });
+};
+
 const postComment = (article_id, comment) => {
   return api
     .post(`/articles/${article_id}/comments`, comment)
@@ -63,6 +71,7 @@ export {
   getSingleArticle,
   getArticleComments,
   getVoteCount,
+  patchVoteCountArticle,
   postComment,
   getUsers,
   deleteComment,
