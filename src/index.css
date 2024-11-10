@@ -1,5 +1,5 @@
 :root {
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -18,8 +18,9 @@ h1 {
   line-height: 1.1;
   background-color: #153044;
   color: #eae2e2;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 40px;
+  margin: 0;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -101,8 +102,8 @@ p {
 .article-card {
   display: flex;
   flex-direction: column;
-  border: 4px solid #153044;
-  border-radius: 20px;
+  border: 2px solid #153044;
+  border-radius: 8px;
   padding: 20px;
   margin: 30px;
   box-sizing: border-box;
@@ -118,7 +119,7 @@ p {
 .single-article-card {
   display: flex;
   flex-direction: column;
-  border: 4px solid #153044;
+  border: 2px solid #153044;
   border-radius: 20px;
   padding: 50px;
   margin: 50px;
@@ -127,7 +128,7 @@ p {
 .comment-card {
   display: flex;
   flex-direction: column;
-  border: 4px solid #153044;
+  border: 2px solid #153044;
   border-radius: 20px;
   margin-right: 50px;
   margin-bottom: 20px;
@@ -180,7 +181,7 @@ p {
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  border: 4px solid #153044;
+  border: 2px solid #153044;
   border-radius: 20px;
   padding: 20px;
   margin: 10px auto;
