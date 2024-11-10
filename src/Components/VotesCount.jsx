@@ -14,7 +14,7 @@ function VotesCount({ votes, itemId, itemType }) {
   }, [votes]);
 
   const handleVote = (increment) => {
-    if (!loggedInUser?.username) {
+    if (!loggedInUser.username) {
       setIsError("You must be logged in to vote. Please go to the Login page.");
       return;
     }
@@ -48,16 +48,10 @@ function VotesCount({ votes, itemId, itemType }) {
   return (
     <>
       <p>Votes: {voteCount}</p>
-      <button
-        onClick={() => handleVote(1)}
-        disabled={isLoading}
-      >
+      <button onClick={() => handleVote(1)} disabled={isLoading}>
         +
       </button>
-      <button
-        onClick={() => handleVote(-1)}
-        disabled={isLoading}
-      >
+      <button onClick={() => handleVote(-1)} disabled={isLoading}>
         -
       </button>
       {isError && <p style={{ color: "red" }}>{isError}</p>}

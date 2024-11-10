@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { postComment } from "../api";
+import { UserContext } from "../Context/User";
+import { useContext } from "react";
 
 function PostComment({ article_id, addNewComment }) {
-  const [newComment, setNewComment] = useState({ body: "", username: "" });
+  const [newComment, setNewComment] = useState({ body: "" });
   const [isPosting, setIsPosting] = useState(false);
   const [isError, setIsError] = useState(null);
+  const { loggedInUser } = useContext(UserContext);
 
   const handleChange = (event) => {
     setNewComment({ ...newComment, [event.target.name]: event.target.value });
@@ -12,17 +15,23 @@ function PostComment({ article_id, addNewComment }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!newComment.body || !newComment.username) {
-      setIsError("Please fill out both fields to post a comment!");
+    if (!loggedInUser.username) {
+      setIsError(
+        "You must be logged in to post a comment. Please go to the Login page."
+      );
+      return;
+    }
+    if (!newComment.body) {
+      setIsError("Please enter a comment before posting!");
       return;
     }
     setIsPosting(true);
     setIsError(null);
 
-    postComment(article_id, newComment)
+    postComment(article_id, { ...newComment, username: loggedInUser.username })
       .then((commentData) => {
         addNewComment(commentData.comment);
-        setNewComment({ body: "", username: "" });
+        setNewComment({ body: "" });
         setIsPosting(false);
       })
       .catch((error) => {
@@ -47,18 +56,12 @@ function PostComment({ article_id, addNewComment }) {
             aria-label="comment box"
           />
         </label>
-        <br />
-        <label id="username-form">
-          Username:
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Valid username..."
-            value={newComment.username}
-            onChange={handleChange}
-          />
-        </label>
+        {loggedInUser.username ? (
+          <p>Logged in: {loggedInUser.username}</p>
+        ) : (
+          <p> Please log in to post a comment</p>
+        )}
+
         <button type="submit" disabled={isPosting}>
           Post
         </button>
