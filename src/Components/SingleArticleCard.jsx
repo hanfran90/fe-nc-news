@@ -70,17 +70,30 @@ function SingleArticleCard() {
 
   return (
     <>
-      <section className= "single-article-card">
-      <h2>{singleArticle.title}</h2>
+      <section className="single-article-card">
+        <h2>{singleArticle.title}</h2>
         <img src={singleArticle.article_img_url} alt="article image" />
         <p>{singleArticle.body}</p>
-        <p>Comment Count: {singleArticle.comment_count}</p>
-        <p>Created At: {singleArticle.created_at}</p>
         <p>Author: {singleArticle.author}</p>
-        <div>
-          <VotesCount itemType="article" itemId={singleArticle.article_id} votes={singleArticle.votes} />
-        </div>
         <p>Topic: {singleArticle.topic}</p>
+        <p>
+          {" "}
+          {new Date(singleArticle.created_at).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </p>
+        <p>Comment Count: {singleArticle.comment_count}</p>
+        <div>
+          <VotesCount
+            itemType="article"
+            itemId={singleArticle.article_id}
+            votes={singleArticle.votes}
+          />
+        </div>
       </section>
 
       <button onClick={handleCommentToggle}>

@@ -14,16 +14,26 @@ function CommentCard({ comment, deleteUserComment, isDeleting }) {
       <p>{comment.body}</p>
       <div>
         <VotesCount
-        votes={comment.votes}
-        itemId={comment.comment_id}
-        itemType="comment" />
+          votes={comment.votes}
+          itemId={comment.comment_id}
+          itemType="comment"
+        />
       </div>
-      <p>{comment.created_at}</p>
+      <p>
+        {" "}
+        {new Date(comment.created_at).toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      </p>
       {isDeleting === comment.comment_id ? (
         <p>Deleting...</p>
       ) : (
         loggedInUser.username === comment.author && (
-          <button onClick={handleDelete}>Delete</button>
+          <button id= "delete-button" onClick={handleDelete}>Delete</button>
         )
       )}
     </section>

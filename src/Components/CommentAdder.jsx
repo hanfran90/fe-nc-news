@@ -65,8 +65,8 @@ function PostComment({ article_id, addNewComment }) {
         <button type="submit" disabled={isPosting}>
           Post
         </button>
-      </form>
       {isError && <p style={{ color: "red" }}>{isError}</p>}
+      </form>
     </>
   );
 }

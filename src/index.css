@@ -136,6 +136,20 @@ p {
   padding: 20px;
 }
 
+#delete-button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1.5em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #153044;
+  cursor: pointer;
+  border: #dd5739;
+  transition: border-color 0.25s;
+  width: 300px;
+}
+
 .post-form {
   display: flex;
   flex-direction: column;
@@ -146,12 +160,28 @@ p {
 }
 
 .post-form textarea {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: larger;
   width: 80%;
   padding: 12px;
   box-sizing: border-box;
   background-color: #153044;
   border: 5px solid rgb(225, 125, 11);
   border-radius: 8px;
+}
+
+.post-form button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1.5em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #153044;
+  cursor: pointer;
+  border: #dd5739;
+  transition: border-color 0.25s;
+  width: 300px;
 }
 
 #comment-form {
