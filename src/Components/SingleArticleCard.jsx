@@ -70,16 +70,15 @@ function SingleArticleCard() {
 
   return (
     <>
-      <h2>Article</h2>
-      <section id="single-article">
-        <h3>Title: {singleArticle.title}</h3>
+      <section className= "single-article-card">
+      <h2>{singleArticle.title}</h2>
         <img src={singleArticle.article_img_url} alt="article image" />
         <p>{singleArticle.body}</p>
         <p>Comment Count: {singleArticle.comment_count}</p>
         <p>Created At: {singleArticle.created_at}</p>
-        <h4>Author: {singleArticle.author}</h4>
+        <p>Author: {singleArticle.author}</p>
         <div>
-          <VotesCount isArticle={true} article_id={article_id} />
+          <VotesCount itemType="article" itemId={singleArticle.article_id} votes={singleArticle.votes} />
         </div>
         <p>Topic: {singleArticle.topic}</p>
       </section>
@@ -94,7 +93,7 @@ function SingleArticleCard() {
         <>
           <CommentAdder article_id={article_id} addNewComment={addNewComment} />
           <ArticleComments
-            article_id={article_id}
+            itemId={article_id}
             showComments={showComments}
             allComments={allComments}
             deleteUserComment={deleteUserComment}

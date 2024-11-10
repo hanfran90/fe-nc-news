@@ -19,7 +19,7 @@ function UserList() {
   }
 
   return (
-    <ul className="user-list">
+    <ul className="user-container">
       {users.map((user) => {
         return <UserCard user={user} key={user.username} />;
       })}

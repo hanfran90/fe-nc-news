@@ -36,22 +36,24 @@ function ArticlesByTopic() {
     );
 
   return (
-    <section>
+    <>
       <h3>Articles about {topic.toUpperCase()}</h3>
-      {articleTopics.length > 0 ? (
-        articleTopics.map((article) => (
-          <div className="article-card" key={article.article_id}>
-            <img src={article.article_img_url} />
-            <Link to={`/articles/${article.article_id}`}>
-              <h3>{article.title}</h3>
-            </Link>
-            <p>{article.author}</p>
-          </div>
-        ))
-      ) : (
-        <p>No articles available for this topic!</p>
-      )}
-    </section>
+      <section className="article-container">
+        {articleTopics.length > 0 ? (
+          articleTopics.map((article) => (
+            <div className="article-card" key={article.article_id}>
+              <img src={article.article_img_url} />
+              <Link to={`/articles/${article.article_id}`}>
+                <h3>{article.title}</h3>
+              </Link>
+              <p>{article.author}</p>
+            </div>
+          ))
+        ) : (
+          <p>No articles available for this topic!</p>
+        )}
+      </section>
+    </>
   );
 }
 export default ArticlesByTopic;

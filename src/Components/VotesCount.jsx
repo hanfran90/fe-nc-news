@@ -1,55 +1,55 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getVoteCount, patchVoteCountArticle } from "../api";
-import { UserContext } from "../Context/User";
-import Loading from "./Loading";
+import { patchVoteCountComment, patchVoteCountArticle } from "../api";
 
-function VotesCount() {
-  const { article_id } = useParams();
+function VotesCount({ votes, itemId, itemType }) {
   const [voteCount, setVoteCount] = useState(0);
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    getVoteCount(article_id).then((voteCount) => {
-      setVoteCount(voteCount);
-    });
-  }, [article_id]);
+    setVoteCount(votes);
+  }, [votes]);
 
-  const handleAddVote = () => {
+  const handleVote = (increment) => {
     setIsError(null);
-    setVoteCount((voteCount) => voteCount + 1);
+    setVoteCount((prevVoteCount) => {
+      return prevVoteCount + increment;
+    });
     setIsLoading(true);
-    patchVoteCountArticle(article_id, 1)
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setVoteCount((voteCount) => voteCount - 1);
-        setIsError("Your vote was not successful. Please try again!");
-      });
-  };
 
-  const handleSubtractVote = () => {
-    setVoteCount((voteCount) => voteCount - 1);
-    setIsLoading(true);
-    patchVoteCountArticle(article_id, -1)
+    let patchVote;
+    if (itemType === "article") {
+      patchVote = patchVoteCountArticle;
+    } else if (itemType === "comment") {
+      patchVote = patchVoteCountComment;
+    } else {
+      setIsError("An error occured whilst voting. Please try again");
+      return;
+    }
+
+    patchVote(itemId, increment)
       .then(() => {
+        console.log(itemId);
         setIsLoading(false);
       })
-      .catch(() => {
-        setVoteCount((voteCount) => voteCount + 1);
-        setIsError("Could not rescind your vote. Please try again!");
+      .catch((error) => {
+        console.log(error);
+        setVoteCount((prevVoteCount) => prevVoteCount - increment);
+        setIsError("Your vote was not successful. Please try again.");
+        setIsLoading(false);
       });
   };
 
   return (
     <>
       <p>Votes: {voteCount}</p>
-      <button onClick={handleAddVote}> +</button>
+      <button onClick={() => handleVote(1)} disabled={isLoading}>
+        +
+      </button>
       {isError ? <p>{isError}</p> : null}
-      <button onClick={handleSubtractVote}>-</button>
+      <button onClick={() => handleVote(-1)} disabled={isLoading}>
+        -
+      </button>
     </>
   );
 }

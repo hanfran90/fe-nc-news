@@ -20,15 +20,18 @@ const getArticleComments = (article_id) => {
     return data.comments;
   });
 };
-const getVoteCount = (article_id) => {
-  return api.get(`/articles/${article_id}`).then(({ data }) => {
-    return data.article.votes;
-  });
-};
 
 const patchVoteCountArticle = (article_id, increment) => {
   return api
     .patch(`/articles/${article_id}`, { inc_votes: increment })
+    .then((response) => {
+      return response.data;
+    });
+};
+
+const patchVoteCountComment = (comment_id, increment) => {
+  return api
+    .patch(`/comments/${comment_id}`, { inc_votes: increment })
     .then((response) => {
       return response.data;
     });
@@ -70,8 +73,8 @@ export {
   getArticles,
   getSingleArticle,
   getArticleComments,
-  getVoteCount,
   patchVoteCountArticle,
+  patchVoteCountComment,
   postComment,
   getUsers,
   deleteComment,

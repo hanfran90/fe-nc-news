@@ -43,7 +43,7 @@ function NavBar() {
         </section>
       </nav>
       <section>
-        <h4> Welcome {isLoggedIn ? loggedInUser.username : "guest"} </h4>
+        <h2> Welcome {isLoggedIn ? loggedInUser.username : "guest"} </h2>
       </section>
     </>
   );

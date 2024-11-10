@@ -13,8 +13,10 @@ function CommentCard({ comment, deleteUserComment, isDeleting }) {
       <h4>{comment.author}</h4>
       <p>{comment.body}</p>
       <div>
-        Votes:
-        {comment.votes}
+        <VotesCount
+        votes={comment.votes}
+        itemId={comment.comment_id}
+        itemType="comment" />
       </div>
       <p>{comment.created_at}</p>
       {isDeleting === comment.comment_id ? (

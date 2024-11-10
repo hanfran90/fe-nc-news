@@ -50,6 +50,9 @@ function ArticlesList() {
       <h2>Enjoy reading todays news!</h2>
       <div>
         <select
+          aria-label="Sort By"
+          id="sort-select"
+          className="filter-menu"
           value={sort}
           onChange={(event) => {
             setSort(event.target.value);
@@ -60,7 +63,11 @@ function ArticlesList() {
           <option value="author">Author</option>
           <option value="title">Title</option>
         </select>
+
         <select
+          aria-label="Order By"
+          id="order-select"
+          className="filter-menu"
           value={order}
           onChange={(event) => {
             setOrder(event.target.value);
@@ -71,11 +78,11 @@ function ArticlesList() {
           <option value="desc">Descending</option>
         </select>
       </div>
-      <ul>
+      <div className="article-container">
         {allArticles.map((article) => (
           <ArticleCard article={article} key={article.article_id} />
         ))}
-      </ul>
+      </div>
     </section>
   );
 }

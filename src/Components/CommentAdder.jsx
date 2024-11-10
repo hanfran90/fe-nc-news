@@ -36,13 +36,15 @@ function PostComment({ article_id, addNewComment }) {
       {isPosting && <p>Posting your comment...</p>}
       <form onSubmit={handleSubmit} method="post" className="post-form">
         <label id="comment-form">
-          Comment:
-          <input
-            type="text"
+          <h3>Comment</h3>
+          <textarea
+            id="body"
             name="body"
             placeholder="Write your comment here..."
             value={newComment.body}
             onChange={handleChange}
+            rows="4"
+            aria-label="comment box"
           />
         </label>
         <br />
@@ -50,6 +52,7 @@ function PostComment({ article_id, addNewComment }) {
           Username:
           <input
             type="text"
+            id="username"
             name="username"
             placeholder="Valid username..."
             value={newComment.username}
