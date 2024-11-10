@@ -42,11 +42,22 @@ function ArticlesByTopic() {
         {articleTopics.length > 0 ? (
           articleTopics.map((article) => (
             <div className="article-card" key={article.article_id}>
-              <img src={article.article_img_url} />
-              <Link to={`/articles/${article.article_id}`}>
-                <h3>{article.title}</h3>
-              </Link>
-              <p>{article.author}</p>
+              <img src={article.article_img_url} alt={article.title} />
+              <div className="article-content">
+                <Link to={`/articles/${article.article_id}`}>
+                  <h3 className="title">{article.title}</h3>
+                </Link>
+                <p className="author">{article.author}</p>
+                <p className ="created-at">
+                  {new Date(article.created_at).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
+              </div>
             </div>
           ))
         ) : (

@@ -33,7 +33,9 @@ function CommentCard({ comment, deleteUserComment, isDeleting }) {
         <p>Deleting...</p>
       ) : (
         loggedInUser.username === comment.author && (
-          <button id= "delete-button" onClick={handleDelete}>Delete</button>
+          <button id="delete-button" onClick={handleDelete}>
+            Delete
+          </button>
         )
       )}
     </section>
