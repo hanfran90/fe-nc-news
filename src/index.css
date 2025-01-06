@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: #153044;
-  background-color: #f7f5e8;
+  background-color: #e8eded;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,7 +23,7 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
   background-color: #153044;
-  color: #eae2e2;
+  color: #e8eded;
   padding: 40px;
   margin: 0;
   margin-bottom: 10px;
@@ -62,19 +62,21 @@ p {
 }
 
 #navbar {
+  position: relative;
   display: flex;
+  align-items: center;
   justify-content: space-around;
   text-align: center;
   font-size: 20px;
   padding: 20px;
   background-color: #153044;
-  color: #e0ddd6;
+  color: #e8eded;
   text-decoration: none;
   gap: 10px;
 }
 
 #navbar a {
-  color: #e0ddd6;
+  color: #e8eded;
   text-decoration: none;
 }
 
@@ -82,21 +84,46 @@ p {
   color: #dd5739;
 }
 
+.dropdown-topics {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.dropdown-topic {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.dropdown-topics:hover .dropdown-topic {
+  display: block;
+  background-color: #153044;
+}
+
 .dropdown-topic a {
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
-  font-size: large;
-  margin: 8px;
+  display: block;
+  padding: 10px;
+}
+
+.dropdown-topic a:hover {
+  background-color: #dd5739;
+  color: #153044 !important;
 }
 
 .filter-menu {
-  position: relative;
+  font-family: Arial, sans-serif;
+  margin: 30px 0px 20px 30px;
+  padding: 10px 15px;
   background-color: #153044;
-  height: 40px;
-  width: 100px;
-  text-align: start;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 200px;
+  position: relative;
 }
 
 .article-container {
@@ -265,7 +292,7 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: #f7f5e8;
+  background-color: #e8eded;
   border: 2px solid #153044;
   border-radius: 12px;
   padding: 20px;
